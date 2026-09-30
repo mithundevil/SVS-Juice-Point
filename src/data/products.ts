@@ -19,7 +19,7 @@ export const PRODUCTS: Product[] = [
     tamilName: null,
     category: 'nungu-ilaneer',
     price: 60,
-    image: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=80',
+    image: '/images/nunku-sarbath.jpg',
     description: 'Fresh organic ice apple juice combined with natural herbal Nannari syrup.',
     available: true,
     popular: true,
