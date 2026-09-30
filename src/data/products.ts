@@ -56,17 +56,7 @@ export const PRODUCTS: Product[] = [
     description: 'Soothing blend of tender ice apple pieces served in sweet chilled milk.',
     available: true,
   },
-  {
-    id: 'nunku-ilaneer',
-    name: 'Nungu and Ilaneer',
-    tamilName: null,
-    category: 'nungu-ilaneer',
-    price: 100,
-    image: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=80',
-    description: 'Ultimate natural cooler combining pure tender coconut water and tender ice apple.',
-    available: true,
-    popular: true,
-  },
+
   {
     id: 'ilaneer-sarbath',
     name: 'Ilaneer Sarbath',
