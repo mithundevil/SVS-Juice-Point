@@ -30,7 +30,7 @@ export const PRODUCTS: Product[] = [
     tamilName: null,
     category: 'nungu-ilaneer',
     price: 80,
-    image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80',
+    image: '/images/nunku-shake.jpg',
     description: 'Creamy cold shake prepared with tender fresh ice apples and chilled milk.',
     available: true,
     popular: true,
