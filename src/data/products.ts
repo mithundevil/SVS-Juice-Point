@@ -3,6 +3,28 @@ import { Product } from '@/types';
 export const PRODUCTS: Product[] = [
   // ================= NUNGU / ILANEER JUICES =================
   {
+    id: 'nungu',
+    name: 'Nungu',
+    tamilName: null,
+    category: 'nungu-ilaneer',
+    price: 50,
+    image: '/images/nungu.jpg',
+    description: 'Fresh tender ice apple (nungu), translucent, cooling and naturally rich in minerals.',
+    available: true,
+    popular: true,
+  },
+  {
+    id: 'ilaneer',
+    name: 'Ilaneer',
+    tamilName: null,
+    category: 'nungu-ilaneer',
+    price: 40,
+    image: '/images/ilaneer.jpg',
+    description: 'Fresh natural tender coconut water, deeply hydrating and naturally sweet.',
+    available: true,
+    popular: true,
+  },
+  {
     id: 'nunku-juice',
     name: 'Nunku Juice',
     tamilName: null,
