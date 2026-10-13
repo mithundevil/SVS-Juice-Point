@@ -2,14 +2,16 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/utils';
 
 export const MobileCartBar: React.FC = () => {
+  const pathname = usePathname();
   const { totalItems, subtotal, isHydrated } = useCart();
 
-  if (!isHydrated || totalItems === 0) {
+  if (!isHydrated || totalItems === 0 || pathname.startsWith('/admin')) {
     return null;
   }
 

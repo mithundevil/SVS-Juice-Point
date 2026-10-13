@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
-import { PRODUCTS } from '@/data/products';
+import { getProductsWithPrices } from '@/lib/services/products';
 import { ProductGrid } from '@/components/ProductGrid';
 import { SHOP_DETAILS } from '@/lib/utils';
 import { CategoryId } from '@/types';
@@ -18,9 +18,10 @@ interface MenuPageProps {
 export default async function MenuPage({ searchParams }: MenuPageProps) {
   const resolvedParams = await searchParams;
   const categoryParam = (resolvedParams.category as CategoryId) || 'all';
+  const products = await getProductsWithPrices();
 
   return (
-    <div className="py-12 sm:py-16 bg-sand min-h-screen">
+    <div className="pt-24 sm:pt-32 pb-16 bg-sand min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header Title */}
         <div className="bg-palm-deep text-cream rounded-3xl p-8 sm:p-12 shadow-card-hover border border-palm-700 text-center sm:text-left space-y-3">
@@ -35,7 +36,7 @@ export default async function MenuPage({ searchParams }: MenuPageProps) {
 
         {/* Product Grid */}
         <Suspense fallback={<div className="text-center py-12 text-palm-deep font-extrabold text-sm uppercase tracking-wider">Loading Menu...</div>}>
-          <ProductGrid products={PRODUCTS} initialCategory={categoryParam} />
+          <ProductGrid products={products} initialCategory={categoryParam} />
         </Suspense>
       </div>
     </div>

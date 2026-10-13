@@ -48,8 +48,12 @@ export const CheckoutForm: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
 
     if (cart.length === 0) {
       alert('Your cart is empty!');
@@ -60,29 +64,81 @@ export const CheckoutForm: React.FC = () => {
       return;
     }
 
-    const whatsappUrl = generateWhatsAppUrl(cart, formData, subtotal, subtotal);
+    setSubmitting(true);
 
     try {
-      const orderSummaryPayload = {
-        cart,
-        customer: formData,
-        subtotal,
-        total: subtotal,
-        whatsappUrl,
-        timestamp: new Date().toISOString(),
-      };
-      sessionStorage.setItem('last_svs_order', JSON.stringify(orderSummaryPayload));
-    } catch (e) {
-      console.error('SessionStorage error:', e);
-    }
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customerName: formData.name,
+          customerPhone: formData.mobile,
+          orderType: formData.orderType,
+          deliveryAddress: formData.address,
+          landmark: formData.landmark,
+          customerNotes: formData.notes,
+          paymentMethod: formData.paymentMethod,
+          items: cart.map((item) => ({
+            productId: item.productId,
+            quantity: item.quantity,
+            withIceCream: item.withIceCream,
+          })),
+        }),
+      });
 
-    window.open(whatsappUrl, '_blank');
-    clearCart();
-    router.push('/order-success');
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        setSubmitError(data.error || 'Failed to submit order. Please check item availability.');
+        setSubmitting(false);
+        return;
+      }
+
+      const { order, whatsappUrl } = data;
+
+      try {
+        const orderSummaryPayload = {
+          order,
+          cart,
+          customer: formData,
+          subtotal: Math.round(order.subtotal_paise / 100),
+          deliveryFee: Math.round(order.delivery_fee_paise / 100),
+          total: Math.round(order.total_paise / 100),
+          whatsappUrl,
+          timestamp: new Date().toISOString(),
+        };
+        sessionStorage.setItem('last_svs_order', JSON.stringify(orderSummaryPayload));
+      } catch (err) {
+        console.error('SessionStorage error:', err);
+      }
+
+      // Try opening WhatsApp in new window
+      try {
+        window.open(whatsappUrl, '_blank');
+      } catch (e) {
+        console.warn('Popup blocked, customer can click button on success page', e);
+      }
+
+      clearCart();
+      router.push('/order-success');
+    } catch (err: any) {
+      console.error('Submission error:', err);
+      setSubmitError(err.message || 'An error occurred while connecting to the shop server.');
+      setSubmitting(false);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="bg-cream rounded-3xl p-6 sm:p-8 border border-sand-300 shadow-card space-y-8">
+      {submitError && (
+        <div className="bg-rose-50 border border-rose-300 text-rose-800 text-xs font-bold rounded-2xl p-4 flex items-start gap-2.5">
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-black">Order Could Not Be Placed</p>
+            <p className="mt-0.5 font-medium">{submitError}</p>
+          </div>
+        </div>
+      )}
       <div className="border-b border-sand-300 pb-4">
         <h2 className="text-2xl font-black text-palm-deep">Complete Your Order</h2>
         <p className="text-xs text-text-muted font-medium mt-1">
@@ -287,14 +343,15 @@ export const CheckoutForm: React.FC = () => {
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-full bg-palm-deep hover:bg-palm-800 active:scale-95 text-cream font-extrabold text-sm uppercase tracking-wider py-4 px-6 rounded-2xl shadow-card hover:shadow-card-hover transition-all flex items-center justify-center gap-3 border border-palm-700"
+        disabled={submitting}
+        className="w-full bg-palm-deep hover:bg-palm-800 disabled:opacity-50 active:scale-95 text-cream font-extrabold text-sm uppercase tracking-wider py-4 px-6 rounded-2xl shadow-card hover:shadow-card-hover transition-all flex items-center justify-center gap-3 border border-palm-700"
       >
         <MessageCircle className="w-5 h-5 text-gold-400" />
-        <span>Order on WhatsApp</span>
+        <span>{submitting ? 'Placing Order...' : 'Order on WhatsApp'}</span>
       </button>
 
       <p className="text-center text-xs text-text-muted font-medium">
-        Clicking this button will open WhatsApp with your pre-filled order details.
+        Your order is saved directly in our shop database and formatted for WhatsApp dispatch.
       </p>
     </form>
   );

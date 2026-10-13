@@ -1,13 +1,21 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Phone, MapPin, MessageCircle, Palmtree } from 'lucide-react';
 import { SHOP_DETAILS } from '@/lib/utils';
 import { generateGeneralInquiryWhatsAppUrl } from '@/lib/whatsapp';
 
 export const Footer: React.FC = () => {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
   const whatsappUrl = generateGeneralInquiryWhatsAppUrl();
+
+  if (pathname.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <footer className="bg-palm-deep text-cream pt-20 pb-24 md:pb-14 border-t-4 border-gold-500">
