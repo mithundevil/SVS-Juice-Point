@@ -205,7 +205,7 @@ export const PRODUCTS: Product[] = [
     tamilName: null,
     category: 'milk-shake',
     price: 70,
-    image: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=800&q=80',
+    image: '/images/sharja-strawberry.jpg',
     description: 'Delicious pink strawberry milkshake full of fruity flavor.',
     available: true,
     allowIceCreamAddon: true,

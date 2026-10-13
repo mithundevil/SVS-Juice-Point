@@ -8,7 +8,7 @@ export const CATEGORIES: CategoryInfo[] = [
     description: 'Naturally cooling tender coconut & ice apple specialities inspired by the palmyra palm',
     iconName: 'Palmtree',
     badge: 'Signature',
-    image: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=80',
+    image: '/images/nungu.jpg',
   },
   {
     id: 'fresh-ice-creams',
@@ -17,7 +17,7 @@ export const CATEGORIES: CategoryInfo[] = [
     description: 'Natural handmade fruit ice bars crafted with authentic taste',
     iconName: 'IceCream',
     badge: 'Handcrafted',
-    image: 'https://images.unsplash.com/photo-1560008511-11c63416e52d?auto=format&fit=crop&w=800&q=80',
+    image: '/images/nunku-ice.jpg',
   },
   {
     id: 'sarbath',
@@ -26,7 +26,7 @@ export const CATEGORIES: CategoryInfo[] = [
     description: 'Traditional Nannari sarbath and fizzy citrus refreshes',
     iconName: 'GlassWater',
     badge: 'Classic',
-    image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80',
+    image: '/images/sarbath.jpg',
   },
   {
     id: 'milk-shake',
@@ -35,7 +35,7 @@ export const CATEGORIES: CategoryInfo[] = [
     description: 'Rich, thick & creamy shakes made with high-quality ingredients',
     iconName: 'Milk',
     badge: 'Creamy',
-    image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80',
+    image: '/images/chocolate-shake.jpg',
   },
   {
     id: 'fresh-juices',
@@ -44,7 +44,7 @@ export const CATEGORIES: CategoryInfo[] = [
     description: 'Pure, freshly extracted fruit juices loaded with natural vitamins',
     iconName: 'Citrus',
     badge: '100% Fresh',
-    image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=800&q=80',
+    image: '/images/pomegranate-juice.jpg',
   },
   {
     id: 'sharja',
@@ -53,7 +53,7 @@ export const CATEGORIES: CategoryInfo[] = [
     description: 'Signature thick banana & milk blend drinks',
     iconName: 'Sparkles',
     badge: 'Popular',
-    image: 'https://images.unsplash.com/photo-1553787499-6f9133860278?auto=format&fit=crop&w=800&q=80',
+    image: '/images/sharja-classic.jpg',
   },
   {
     id: 'omlete',
@@ -62,6 +62,6 @@ export const CATEGORIES: CategoryInfo[] = [
     description: 'Freshly made hot bread omelette snack',
     iconName: 'Egg',
     badge: 'Hot Snack',
-    image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80',
+    image: '/images/bread-omelette.jpg',
   },
 ];
